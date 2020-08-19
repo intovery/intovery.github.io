@@ -1,6 +1,7 @@
-<svg
-    xmlns="http://www.w3.org/2000/svg" version="1.1" width="256" height="256" viewbox="0 0 949 256">
-    <path fill="#2366d1" d="M110.85125168440814 128L221.70250336881628 192L110.85125168440814 256L0 192Z"/>
-    <path fill="#609dff" d="M110.85125168440814 64L221.70250336881628 128L110.85125168440814 192L0 128Z"/>
-    <path fill="#a4c7ff" d="M110.85125168440814 0L221.70250336881628 64L110.85125168440814 128L0 64Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-ball-bowling" width="44" height="44" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" />
+  <circle cx="12" cy="12" r="9" />
+  <line x1="11" y1="9" x2="11" y2="9.01" />
+  <line x1="15" y1="8" x2="15" y2="8.01" />
+  <line x1="14" y1="12" x2="14" y2="12.01" />
 </svg>
