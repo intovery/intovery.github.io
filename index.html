@@ -75,6 +75,71 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-sudoku-erlang" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2021/05/13/sudoku-erlang/" class="article-date">
+  <time class="dt-published" datetime="2021-05-13T14:21:52.000Z" itemprop="datePublished">2021-05-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2021/05/13/sudoku-erlang/">sudoku-erlang</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="Sudoku-Interpreter-w-Erlang"><a href="#Sudoku-Interpreter-w-Erlang" class="headerlink" title="Sudoku Interpreter w/ Erlang"></a>Sudoku Interpreter w/ Erlang</h1><p>Sudoku Interpreter implemented by Erlang.</p>
+<h1 id="Project-purpose"><a href="#Project-purpose" class="headerlink" title="Project purpose"></a>Project purpose</h1><ul>
+<li>Build tools solving multiple problems about sudoku</li>
+<li>Learn basic Erlang syntax &amp; how to build Erlang program</li>
+</ul>
+<h1 id="Modules"><a href="#Modules" class="headerlink" title="Modules"></a>Modules</h1><ul>
+<li>sudoku: reading board + inspect sudoku’s properties</li>
+<li>knuth: to solve “exact cover” problems, including sudoku</li>
+<li>testcase: “exact cover” problem examples(exact cover, 2x2 sudoku, 9x9 sudoku)</li>
+<li>solver: sudoku solver using module “knuth.erl”</li>
+</ul>
+<h1 id="How-I-used-it"><a href="#How-I-used-it" class="headerlink" title="How I used it"></a>How I used it</h1><ol>
+<li>Add sudoku problem into “./data” folder with format .csv</li>
+<li>Call “solver:solve/1” or “solver:solve/2” with path of sudoku problem</li>
+</ol>
+<blockquote>
+  <figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>&gt; solver:solve(<span class="string">&quot;./data/data.csv&quot;</span>).</span><br><span class="line">[[[&#123;&#123;<span class="number">9</span>,<span class="number">7</span>&#125;,<span class="number">1</span>&#125;],</span><br><span class="line">  [&#123;&#123;<span class="number">9</span>,<span class="number">6</span>&#125;,<span class="number">6</span>&#125;],</span><br><span class="line">  [&#123;&#123;<span class="number">9</span>,...&#125;,<span class="number">2</span>&#125;],</span><br><span class="line">  [&#123;&#123;...&#125;,...&#125;],</span><br><span class="line">  [&#123;...&#125;],</span><br><span class="line">  [...]|...]]</span><br><span class="line">  </span><br><span class="line"><span class="number">2</span>&gt; solver:solve(<span class="keyword">fun</span>(R) -&gt; io:format(<span class="string">&quot;LENGTH =&gt; ~p~n&quot;</span>,[length(R)]) <span class="keyword">end</span>,<span class="string">&quot;./data/data.csv&quot;</span>).</span><br><span class="line">LENGTH =&gt; <span class="number">52</span></span><br><span class="line">ok</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>&gt; timer:tc(<span class="keyword">fun</span>() -&gt; solver:solve(<span class="string">&quot;./data/data.csv&quot;</span>) <span class="keyword">end</span>).</span><br><span class="line">&#123;<span class="number">110000</span>,</span><br><span class="line"> [[[&#123;&#123;<span class="number">9</span>,<span class="number">7</span>&#125;,<span class="number">1</span>&#125;],</span><br><span class="line">   [&#123;&#123;<span class="number">9</span>,<span class="number">6</span>&#125;,<span class="number">6</span>&#125;],</span><br><span class="line">   [&#123;&#123;<span class="number">9</span>,...&#125;,<span class="number">2</span>&#125;],</span><br><span class="line">   [&#123;&#123;...&#125;,...&#125;],</span><br><span class="line">   [&#123;...&#125;],</span><br><span class="line">   [...]|...]]&#125;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="How-can-I-test-it"><a href="#How-can-I-test-it" class="headerlink" title="How can I test it?"></a>How can I test it?</h1><p>Use “solve_sudoku.escript” to test sudoku solver.</p>
+<blockquote>
+<p>  ```erlang</p>
+<blockquote>
+<p>escript solve_sudoku.escript<br>  USAGE: escript solve_sudoku.escript <PATH><br>escript solve_sudoku.escript “./data/data.csv”<br>  SOLUTION 1<br>   5  3  4  6  7  8  9  1  2<br>   6  7  2  1  9  5  3  4  8<br>   1  9  8  3  4  2  5  6  7<br>   8  5  9  7  6  1  4  2  3<br>   4  2  6  8  5  3  7  9  1<br>   7  1  3  9  2  4  8  5  6<br>   9  6  1  5  3  7  2  8  4<br>   2  8  7  4  1  9  6  3  5<br>   3  4  5  2  8  6  1  7  9<br>escript solve_sudoku.escript “./data/data_multiple.csv”<br>  SOLUTION 1<br>   5  3  4  6  7  8  9  1  2<br>   6  7  2  1  9  5  3  4  8<br>   1  9  8  3  4  2  5  6  7<br>   8  2  6  7  5  1  4  9  3<br>   4  5  9  8  6  3  7  2  1<br>   7  1  3  9  2  4  8  5  6<br>   9  6  1  5  3  7  2  8  4<br>   2  8  7  4  1  9  6  3  5<br>   3  4  5  2  8  6  1  7  9<br>  SOLUTION 2<br>   5  3  4  6  7  8  9  1  2<br>   6  7  2  1  9  5  3  4  8<br>   1  9  8  3  4  2  5  6  7<br>   8  5  9  7  6  1  4  2  3<br>   4  2  6  8  5  3  7  9  1<br>   7  1  3  9  2  4  8  5  6<br>   9  6  1  5  3  7  2  8  4<br>   2  8  7  4  1  9  6  3  5<br>   3  4  5  2  8  6  1  7  9</p>
+</blockquote>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://intovery.github.io/2021/05/13/sudoku-erlang/" data-id="ckomzhrtn0004aoupacww6rh3" data-title="sudoku-erlang" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/erlang/" rel="tag">erlang</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Portfolio-Kingsnake-DB" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2020/08/18/Portfolio-Kingsnake-DB/" class="article-date">
@@ -102,9 +167,9 @@
     <div class="e-content article-entry" itemprop="articleBody">
       
         <h2 id="목차"><a href="#목차" class="headerlink" title="목차"></a>목차</h2><pre><code>1. 포트폴리오 설명
-2. 프로그램 설명
-3. 기여한 파트
-4. (미리 알았으면 좋았을)보완점들
+  2. 프로그램 설명
+  3. 기여한 파트
+  4. (미리 알았으면 좋았을)보완점들
 </code></pre>
 <h2 id="포트폴리오-설명"><a href="#포트폴리오-설명" class="headerlink" title="포트폴리오 설명"></a>포트폴리오 설명</h2><p>이 포트폴리오에선 프로그램 <a target="_blank" rel="noopener" href="https://github.com/intovery/Kingsnake_DB">Kingsnake_DB</a>를 만들었던 경험에 대해 설명합니다.</p>
 <h2 id="프로그램-설명"><a href="#프로그램-설명" class="headerlink" title="프로그램 설명"></a>프로그램 설명</h2><p>한국IT직업전문학교에서의 2018 G-STAR 출품 게임 “Kingsnake”의 서비스를 위해 개발 된 프로그램입니다.</p>
@@ -206,7 +271,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://intovery.github.io/2020/08/18/Portfolio-Kingsnake-DB/" data-id="ckomytk9f0000lsupefeofdtx" data-title="Portfolio: Kingsnake_DB" class="article-share-link">Share</a>
+      <a data-url="https://intovery.github.io/2020/08/18/Portfolio-Kingsnake-DB/" data-id="ckomzhrti0001aoup71np0j11" data-title="Portfolio: Kingsnake_DB" class="article-share-link">Share</a>
       
       
       
@@ -330,7 +395,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://intovery.github.io/2020/08/18/Portfolio-Kingsnake-GAME/" data-id="ckomytk9k0001lsupfxl42ir2" data-title="Portfolio: Kingsnake_GAME" class="article-share-link">Share</a>
+      <a data-url="https://intovery.github.io/2020/08/18/Portfolio-Kingsnake-GAME/" data-id="ckomzhrt50000aoupg08w3zk7" data-title="Portfolio: Kingsnake_GAME" class="article-share-link">Share</a>
       
       
       
@@ -364,7 +429,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/portfolio/" rel="tag">portfolio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/system/" rel="tag">system</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/erlang/" rel="tag">erlang</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/network/" rel="tag">network</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/portfolio/" rel="tag">portfolio</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/system/" rel="tag">system</a></li></ul>
     </div>
   </div>
 
@@ -374,7 +439,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/c/" style="font-size: 10px;">c++</a> <a href="/tags/network/" style="font-size: 10px;">network</a> <a href="/tags/portfolio/" style="font-size: 10px;">portfolio</a> <a href="/tags/system/" style="font-size: 10px;">system</a>
+      <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/erlang/" style="font-size: 10px;">erlang</a> <a href="/tags/network/" style="font-size: 20px;">network</a> <a href="/tags/portfolio/" style="font-size: 20px;">portfolio</a> <a href="/tags/system/" style="font-size: 20px;">system</a>
     </div>
   </div>
 
@@ -383,7 +448,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/05/">May 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/08/">August 2020</a></li></ul>
     </div>
   </div>
 
@@ -394,6 +459,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2021/05/13/sudoku-erlang/">sudoku-erlang</a>
+          </li>
         
           <li>
             <a href="/2020/08/18/Portfolio-Kingsnake-DB/">Portfolio: Kingsnake_DB</a>
